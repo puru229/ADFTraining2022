@@ -26,6 +26,9 @@
 				},
 				{
 					"name": "joinMovies"
+				},
+				{
+					"name": "select1"
 				}
 			],
 			"scriptLines": [
@@ -53,7 +56,18 @@
 				"     joinType:'left',",
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
-				"     broadcast: 'auto')~> joinMovies"
+				"     broadcast: 'auto')~> joinMovies",
+				"joinMovies select(mapColumn(",
+				"          movieId,",
+				"          title = Movies@title,",
+				"          genres = Movies@genres,",
+				"          movie,",
+				"          year,",
+				"          Rating,",
+				"          RottenTomato",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1"
 			]
 		}
 	}
