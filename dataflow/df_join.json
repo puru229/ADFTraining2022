@@ -85,7 +85,8 @@
 				"     partitionFileNames:['moviesOp_09272022.csv'],",
 				"     truncate: true,",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> MoviesOP"
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('hash', 1)) ~> MoviesOP"
 			]
 		}
 	}
