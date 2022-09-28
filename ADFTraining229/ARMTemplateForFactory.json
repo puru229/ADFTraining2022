@@ -65,7 +65,8 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/dataflows/df_join')]"
+				"[concat(variables('factoryId'), '/dataflows/df_join')]",
+				"[concat(variables('factoryId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]"
 			]
 		},
 		{
@@ -522,11 +523,10 @@
 						"     skipDuplicateMapOutputs: true) ~> select1",
 						"select1 sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
-						"     partitionFileNames:['moviesOp_09272022.csv'],",
+						"     partitionFileNames:['moviesop_csv'],",
 						"     truncate: true,",
 						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true,",
-						"     partitionBy('hash', 1)) ~> MoviesOP"
+						"     skipDuplicateMapOutputs: true) ~> MoviesOP"
 					]
 				}
 			},
