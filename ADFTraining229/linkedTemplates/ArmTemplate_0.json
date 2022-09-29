@@ -21,13 +21,6 @@
 	},
 	"resources": [
 		{
-			"name": "[concat(parameters('factoryName'), '/default')]",
-			"type": "Microsoft.DataFactory/factories/managedVirtualNetworks",
-			"apiVersion": "2018-06-01",
-			"properties": {},
-			"dependsOn": []
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/AutoResolveIntegrationRuntime')]",
 			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
 			"apiVersion": "2018-06-01",
@@ -55,6 +48,13 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/managedVirtualNetworks/default')]"
 			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/default')]",
+			"type": "Microsoft.DataFactory/factories/managedVirtualNetworks",
+			"apiVersion": "2018-06-01",
+			"properties": {},
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/LS_BLOB_Training229')]",
@@ -189,7 +189,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
-						"fileName": "movies.csv",
+						"fileName": "movies_v1.csv",
 						"container": "input"
 					},
 					"columnDelimiter": ",",
@@ -461,7 +461,7 @@
 						"     partitionBy('hash', 1)) ~> MoviesClean",
 						"RatingByYear sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
-						"     partitionFileNames:['MovieCountByYear'],",
+						"     partitionFileNames:['MovieCountByYear.csv'],",
 						"     skipDuplicateMapInputs: true,",
 						"     skipDuplicateMapOutputs: true,",
 						"     partitionBy('hash', 1)) ~> MoviesCountByYear"
