@@ -39,6 +39,12 @@
 				},
 				{
 					"name": "RatingByYear"
+				},
+				{
+					"name": "union1"
+				},
+				{
+					"name": "filter1"
 				}
 			],
 			"scriptLines": [
@@ -54,7 +60,9 @@
 				"          title = toString(left(title, length(title)-6))) ~> ExtractYearTitle",
 				"ExtractYearTitle aggregate(groupBy(Year),",
 				"     MoviesCnt = count(Year)) ~> RatingByYear",
-				"ExtractYearTitle sink(allowSchemaDrift: true,",
+				"filter1, RatingByYear, MoviesV1 union(byName: true)~> union1",
+				"ExtractYearTitle filter(Year==1995) ~> filter1",
+				"union1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     partitionFileNames:['MoviesClean.csv'],",
 				"     skipDuplicateMapInputs: true,",
